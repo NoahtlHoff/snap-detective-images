@@ -28,13 +28,13 @@ public class ImageSetsController(IImageSetService service) : ControllerBase
     }
 
     [HttpPost("{id}/images")]
-    public async Task<IActionResult> AddImage(int id, IFormFile file, [FromForm] string answer)
+    public async Task<IActionResult> AddImage(int id, IFormFile file, [FromForm] List<string> answers)
     {
         var request = new AddImageRequest(
             FileName: file.FileName,
             ContentType: file.ContentType,
             FileStream: file.OpenReadStream(),
-            Answer: answer);
+            Answers: answers);
 
         await service.AddImageAsync(id, request);
         return NoContent();
