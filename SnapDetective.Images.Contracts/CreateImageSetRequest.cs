@@ -1,7 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SnapDetective.Images.Contracts.Events;
+﻿namespace SnapDetective.Images.Contracts;
 
 public record CreateImageSetRequest(string Name, string? Description);

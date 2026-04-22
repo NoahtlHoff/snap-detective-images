@@ -1,5 +1,4 @@
 ﻿using SnapDetective.Images.Contracts;
-using SnapDetective.Images.Contracts.Events;
 
 namespace SnapDetective.Images.Interfaces;
 

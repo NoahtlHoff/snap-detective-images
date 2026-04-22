@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SnapDetective.Images.Models;
+﻿namespace SnapDetective.Images.Models;
 
 public class Image
 {
