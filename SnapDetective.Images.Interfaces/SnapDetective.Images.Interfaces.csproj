@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SnapDetective.Images.Contracts\SnapDetective.Images.Contracts.csproj" />
+    <ProjectReference Include="..\SnapDetective.Images.Models\SnapDetective.Images.Models.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
