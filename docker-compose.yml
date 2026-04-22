@@ -25,4 +25,4 @@ services:
     restart: always
 
 volumes:
- azurite_data:
+  azurite_data:

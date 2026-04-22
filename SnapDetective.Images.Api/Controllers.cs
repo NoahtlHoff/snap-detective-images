@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SnapDetective.Images.Contracts;
-using SnapDetective.Images.Contracts.Events;
 using SnapDetective.Images.Interfaces;
 
 namespace SnapDetective.Images.Api.Controllers;
