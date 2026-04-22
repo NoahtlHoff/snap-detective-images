@@ -1,6 +1,0 @@
-@SnapDetective.Images.Api_HostAddress = http://localhost:5214
-
-GET {{SnapDetective.Images.Api_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

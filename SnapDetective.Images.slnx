@@ -1,4 +1,8 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".env" />
+    <File Path="docker-compose.yml" />
+  </Folder>
   <Project Path="SnapDetective.Images.Api/SnapDetective.Images.Api.csproj" />
   <Project Path="SnapDetective.Images.Contracts/SnapDetective.Images.Contracts.csproj" />
   <Project Path="SnapDetective.Images.Interfaces/SnapDetective.Images.Interfaces.csproj" />
