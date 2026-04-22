@@ -44,7 +44,7 @@ public class ImageSetService(
         {
             Url = url,
             FileName = request.FileName,
-            Answer = request.Answer
+            Answers = request.Answers
         };
 
         await repository.AddImageAsync(imageSetId, image);
@@ -56,11 +56,11 @@ public class ImageSetService(
             new ImageSetPublishedEvent(
                 set.Id,
                 set.Name,
-                set.Images.Select(i => new ImageEventItem(i.Id, i.Url, i.Answer)).ToList()),
+                set.Images.Select(i => new ImageEventItem(i.Id, i.Url, i.Answers)).ToList()),
             routingKey: "image-set.published");
     }
 
     private static ImageSetResult ToResult(ImageSet set) =>
         new(set.Id, set.Name, set.Description,
-            set.Images.Select(i => new ImageResult(i.Id, i.Url, i.Answer)).ToList());
+            set.Images.Select(i => new ImageResult(i.Id, i.Url, i.Answers)).ToList());
 }

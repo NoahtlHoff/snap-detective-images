@@ -4,4 +4,4 @@ using System.Text;
 
 namespace SnapDetective.Images.Contracts;
 
-public record AddImageRequest(string FileName, string ContentType, Stream FileStream, string Answer);
+public record AddImageRequest(string FileName, string ContentType, Stream FileStream, List<string> Answers);
