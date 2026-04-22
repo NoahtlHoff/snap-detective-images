@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="SnapDetective.Images.Api/SnapDetective.Images.Api.csproj" />
+  <Project Path="SnapDetective.Images.Contracts/SnapDetective.Images.Contracts.csproj" />
+  <Project Path="SnapDetective.Images.Interfaces/SnapDetective.Images.Interfaces.csproj" />
+  <Project Path="SnapDetective.Images.Models/SnapDetective.Images.Models.csproj" />
+  <Project Path="SnapDetective.Images.Repository/SnapDetective.Images.Repository.csproj" />
+  <Project Path="SnapDetective.Images.Services/SnapDetective.Images.Services.csproj" />
+</Solution>
