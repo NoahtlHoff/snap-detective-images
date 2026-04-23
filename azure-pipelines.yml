@@ -1,0 +1,53 @@
+trigger:
+  branches:
+    include: [main]
+
+pr:
+  branches:
+    include: [main]
+
+variables:
+  ACR_NAME: snapdetectiveacr
+  IMAGE_NAME: snapdetective-images
+  CONTAINER_APP_NAME: images-service
+  RESOURCE_GROUP: SnapDetective
+
+stages:
+  - stage: BuildAndPush
+    displayName: Build & Push to ACR
+    jobs:
+      - job: Build
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - checkout: self
+
+          - task: Docker@2
+            displayName: Build & push
+            inputs:
+              containerRegistry: 'snapdetective-acr'
+              repository: $(IMAGE_NAME)
+              command: buildAndPush
+              Dockerfile: Dockerfile
+              buildContext: .
+              tags: |
+                $(Build.SourceVersion)
+                latest
+              arguments: --build-arg AZURE_ARTIFACTS_PAT=$(AZURE_ARTIFACTS_PAT)
+
+  - stage: Deploy
+    displayName: Deploy to Container Apps
+    dependsOn: BuildAndPush
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    jobs:
+      - job: Deploy
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - task: AzureContainerApps@1
+            displayName: Deploy to Container App
+            inputs:
+              azureSubscription: 'snapdetective-subscription'
+              containerAppName: $(CONTAINER_APP_NAME)
+              resourceGroup: $(RESOURCE_GROUP)
+              imageToDeploy: $(ACR_NAME).azurecr.io/$(IMAGE_NAME):$(Build.SourceVersion)

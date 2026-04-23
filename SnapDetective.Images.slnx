@@ -1,7 +1,12 @@
 <Solution>
+  <Folder Name="/.github/" />
+  <Folder Name="/.github/workflows/">
+    <File Path="azure-pipelines.yml" />
+  </Folder>
   <Folder Name="/Solution Items/">
     <File Path=".env" />
     <File Path="docker-compose.yml" />
+    <File Path="Dockerfile.txt" />
   </Folder>
   <Project Path="SnapDetective.Images.Api/SnapDetective.Images.Api.csproj" />
   <Project Path="SnapDetective.Images.Contracts/SnapDetective.Images.Contracts.csproj" />
