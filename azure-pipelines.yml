@@ -7,10 +7,15 @@ pr:
     include: [main]
 
 variables:
-  ACR_NAME: snapdetectiveacr
-  IMAGE_NAME: snapdetective-images
-  CONTAINER_APP_NAME: images-service
-  RESOURCE_GROUP: SnapDetective
+  - group: snapdetective-secrets
+  - name: ACR_NAME
+    value: snapdetectiveacr
+  - name: IMAGE_NAME
+    value: snapdetective-images
+  - name: CONTAINER_APP_NAME
+    value: images-service
+  - name: RESOURCE_GROUP
+    value: SnapDetective
 
 stages:
   - stage: BuildAndPush
@@ -28,7 +33,7 @@ stages:
               containerRegistry: 'snapdetective-acr'
               repository: $(IMAGE_NAME)
               command: buildAndPush
-              Dockerfile: Dockerfile
+              Dockerfile: Dockerfile.txt
               buildContext: .
               tags: |
                 $(Build.SourceVersion)
@@ -51,3 +56,6 @@ stages:
               containerAppName: $(CONTAINER_APP_NAME)
               resourceGroup: $(RESOURCE_GROUP)
               imageToDeploy: $(ACR_NAME).azurecr.io/$(IMAGE_NAME):$(Build.SourceVersion)
+              environmentVariables: >
+                ConnectionStrings__DefaultConnection=$(ConnectionStrings__DefaultConnection)
+                ConnectionStrings__BlobStorage=$(ConnectionStrings__BlobStorage)

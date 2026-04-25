@@ -1,4 +1,5 @@
-﻿using SnapDetective.Images.Contracts;
+﻿using Microsoft.Extensions.Logging;
+using SnapDetective.Images.Contracts;
 using SnapDetective.Images.Contracts.Events;
 using SnapDetective.Images.Interfaces;
 using SnapDetective.Images.Models;
@@ -51,13 +52,20 @@ public class ImageSetService(
 
         var set = await repository.GetByIdAsync(imageSetId);
         if (set is null) return;
-
-        await publisher.PublishAsync(
+        try
+        {
+            await publisher.PublishAsync(
             new ImageSetPublishedEvent(
                 set.Id,
                 set.Name,
                 set.Images.Select(i => new ImageEventItem(i.Id, i.Url, i.Answers)).ToList()),
             routingKey: "image-set.published");
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("Could not publish event");
+        }
+        
     }
 
     private static ImageSetResult ToResult(ImageSet set) =>
