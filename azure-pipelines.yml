@@ -23,22 +23,32 @@ stages:
     jobs:
       - job: Build
         pool:
-            name: 'NoahLocal'
+          name: 'NoahLocal'
         steps:
           - checkout: self
 
           - task: Docker@2
-            displayName: Build & push
+            displayName: Build
             inputs:
               containerRegistry: 'snapdetective-acr'
               repository: $(IMAGE_NAME)
-              command: buildAndPush
+              command: build
               Dockerfile: Dockerfile
               buildContext: .
               tags: |
                 $(Build.SourceVersion)
                 latest
               arguments: --build-arg AZURE_ARTIFACTS_PAT=$(AZURE_ARTIFACTS_PAT)
+
+          - task: Docker@2
+            displayName: Push
+            inputs:
+              containerRegistry: 'snapdetective-acr'
+              repository: $(IMAGE_NAME)
+              command: push
+              tags: |
+                $(Build.SourceVersion)
+                latest
 
   - stage: Deploy
     displayName: Deploy to Container Apps
