@@ -33,7 +33,7 @@ stages:
               containerRegistry: 'snapdetective-acr'
               repository: $(IMAGE_NAME)
               command: buildAndPush
-              Dockerfile: Dockerfile.txt
+              Dockerfile: Dockerfile
               buildContext: .
               tags: |
                 $(Build.SourceVersion)
