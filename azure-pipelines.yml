@@ -67,5 +67,5 @@ stages:
               resourceGroup: $(RESOURCE_GROUP)
               imageToDeploy: $(ACR_NAME).azurecr.io/$(IMAGE_NAME):$(Build.SourceVersion)
               environmentVariables: >
-                ConnectionStrings__DefaultConnection=$(ConnectionStrings__DefaultConnection)
-                ConnectionStrings__BlobStorage=$(ConnectionStrings__BlobStorage)
+                ConnectionStrings__DefaultConnection=secretref:connectionstrings--defaultconnection
+                ConnectionStrings__BlobStorage=secretref:connectionstrings--blobstorage
