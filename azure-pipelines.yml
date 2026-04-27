@@ -23,7 +23,7 @@ stages:
     jobs:
       - job: Build
         pool:
-          vmImage: ubuntu-latest
+            name: 'NoahLocal'
         steps:
           - checkout: self
 
@@ -47,7 +47,7 @@ stages:
     jobs:
       - job: Deploy
         pool:
-          vmImage: ubuntu-latest
+          name: 'NoahLocal'
         steps:
           - task: AzureContainerApps@1
             displayName: Deploy to Container App
