@@ -1,6 +1,6 @@
 using Azure.Storage.Blobs;
 using Microsoft.EntityFrameworkCore;
-using RabbitMQ.Client;
+using Azure.Messaging.ServiceBus;
 using SnapDetective.Images.Interfaces;
 using SnapDetective.Images.Repository;
 using SnapDetective.Images.Services;
@@ -14,16 +14,16 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddSingleton<IConnection>(_ =>
+if (builder.Environment.IsDevelopment())
 {
-    var factory = new ConnectionFactory
-    {
-        HostName = builder.Configuration["RabbitMQ:Host"] ?? "localhost",
-        UserName = builder.Configuration["RabbitMQ:Username"] ?? "guest",
-        Password = builder.Configuration["RabbitMQ:Password"] ?? "guest"
-    };
-    return factory.CreateConnectionAsync().GetAwaiter().GetResult();
-});
+    builder.Services.AddScoped<IMessagePublisher, RabbitMqPublisher>();
+}
+else
+{
+    builder.Services.AddSingleton(_ =>
+        new ServiceBusClient(builder.Configuration.GetConnectionString("ServiceBus")));
+    builder.Services.AddScoped<IMessagePublisher, AzureServiceBusPublisher>();
+}
 
 builder.Services.AddSingleton(_ =>
     new BlobServiceClient(builder.Configuration.GetConnectionString("BlobStorage")));
